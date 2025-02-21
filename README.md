@@ -58,6 +58,115 @@ You can modify the following parameters in the script:
 - Mouse movement distance: Change the value `10` in the `move_mouse()` function
 - Movement pattern: Modify the `move_mouse()` function to create different movement patterns
 
+# Autostart Configuration
+
+## 1. Create the systemd user service file
+
+Create this file at `~/.config/systemd/user/doze.service`:
+
+```ini
+[Unit]
+Description=Mouse Activity Simulator
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=%h/.Xauthority
+ExecStart=/full/path/to/your/doze.sh
+Restart=on-failure
+RestartSec=30
+
+[Install]
+WantedBy=graphical-session.target
+```
+
+## 2. Setup Instructions
+
+1. Create the systemd user directory:
+```bash
+mkdir -p ~/.config/systemd/user/
+```
+
+2. Save the service file:
+```bash
+# Replace /full/path/to/your with your actual path
+nano ~/.config/systemd/user/doze.service
+```
+
+3. Reload systemd user daemon:
+```bash
+systemctl --user daemon-reload
+```
+
+4. Enable and start the service:
+```bash
+systemctl --user enable doze.service
+systemctl --user start doze.service
+```
+
+## Management Commands
+
+- Check status:
+```bash
+systemctl --user status doze.service
+```
+
+- Stop the service:
+```bash
+systemctl --user stop doze.service
+```
+
+- Disable autostart:
+```bash
+systemctl --user disable doze.service
+```
+
+- View logs:
+```bash
+journalctl --user -u doze.service
+```
+
+## Alternative: Autostart using Desktop Entry
+
+If you prefer using the desktop environment's autostart functionality:
+
+1. Create this file at `~/.config/autostart/doze.desktop`:
+```ini
+[Desktop Entry]
+Type=Application
+Name=Doze
+Exec=/full/path/to/your/doze.sh
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+```
+
+2. Make it executable:
+```bash
+chmod +x ~/.config/autostart/doze.desktop
+```
+
+## Troubleshooting
+
+1. If the service fails to start, check the logs:
+```bash
+journalctl --user -u doze.service -n 50 --no-pager
+```
+
+2. Common issues:
+   - Wrong path in service file: Update the ExecStart path
+   - Display not set: Make sure DISPLAY=:0 is correct for your system
+   - Permission issues: Ensure the script is executable
+   - Wrong XAUTHORITY: Update the path if your system uses a different location
+
+3. To test the service manually:
+```bash
+XDG_RUNTIME_DIR=/run/user/$(id -u) systemctl --user start doze.service
+```
+
+
 ## Troubleshooting
 
 ### Common Issues
