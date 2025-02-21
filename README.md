@@ -147,6 +147,31 @@ X-GNOME-Autostart-enabled=true
 ```bash
 chmod +x ~/.config/autostart/doze.desktop
 ```
+## 2nd Alternative: update-rc.d autostart
+
+1. In a terminal, run the following:
+
+```
+cat > /etc/init.d/doze.sh <<EOL
+#! /bin/bash
+### BEGIN INIT INFO
+# Provides:       doze.sh
+# Required-Start:    \$local_fs \$syslog
+# Required-Stop:     \$local_fs \$syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: starts my-start-script
+# Description:       starts my-start-script using start-stop-daemon
+### END INIT INFO
+
+# doze.sh
+
+exit 0
+EOL
+chmod 755 /etc/init.d/doze.sh
+update-rc.d doze.sh defaults
+```
+   
 
 ## Troubleshooting
 
@@ -165,7 +190,6 @@ journalctl --user -u doze.service -n 50 --no-pager
 ```bash
 XDG_RUNTIME_DIR=/run/user/$(id -u) systemctl --user start doze.service
 ```
-
 
 ## Troubleshooting
 
