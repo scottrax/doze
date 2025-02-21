@@ -238,7 +238,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Acknowledgments
 
 - Thanks to the `xdotool` and `xinput` developers
-- Inspired by the need to prevent automatic screen locks during long reading sessions
 
 ## Version History
 
