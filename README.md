@@ -1,7 +1,8 @@
 # Doze
 
 A lightweight utility to prevent your Linux system from going idle by simulating subtle mouse movements.
-
+You can download the latest release from:
+https://github.com/scottrax/Doze/releases
 ## Overview
 
 Doze monitors your keyboard and mouse activity. After a configurable period of inactivity (default: 45 seconds), it will automatically move your mouse cursor slightly to prevent screen locks, sleep mode, or "away" status in messaging applications.
