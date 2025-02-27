@@ -21,6 +21,7 @@ Doze monitors your keyboard and mouse activity. After a configurable period of i
 - `yad` package (for GUI version only)
 
 ## Installation
+(please see INSTALL.md for automated install options)
 
 1. Clone the repository:
    ```
