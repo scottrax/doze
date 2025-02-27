@@ -22,7 +22,7 @@ sudo apt update && sudo apt install git xinput xdotool yad
 
 2. Make the scripts executable:
    ```bash
-   chmod +x doze.sh doze_gui.sh
+   chmod +x doze.sh doze-gui.sh
    ```
 
 3. Run the installation script:
